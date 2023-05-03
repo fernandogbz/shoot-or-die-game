@@ -14,4 +14,7 @@ class Player {
     this.radius = radius;
     this.color = color;
   }
+  
 }
+
+const player = new Player()
