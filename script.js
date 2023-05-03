@@ -47,3 +47,9 @@ const player = new Player(x, y, 30, 'blue'); // x, y, radius, color
 
 //Player calls draw function
 player.draw();
+
+window.addEventListener("click", (event) => {
+  const projectile = new Projectile(event.clientX, event.clientY, 5, "red", null) // event.clientYX captures where the event happened (the position in the canvas)
+
+  projectile.draw();
+});
