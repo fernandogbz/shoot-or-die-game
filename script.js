@@ -17,9 +17,14 @@ class Player {
   // to draw the player
   draw() {
     ctx.beginPath()
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false); //x, y, radius, start angle, end angle and drawCounterClockwise
+    // to specify the color
+    ctx.fillStyle = this.color;
     ctx.fill();
   }
 }
 
-const player = new Player()
+const player = new Player(100, 100, 30, 'blue'); // x, y, radius, color
+
+//Player calls draw function
+player.draw();
