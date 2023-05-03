@@ -14,7 +14,12 @@ class Player {
     this.radius = radius;
     this.color = color;
   }
-  
+  // to draw the player
+  draw() {
+    ctx.beginPath()
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    ctx.fill();
+  }
 }
 
 const player = new Player()
