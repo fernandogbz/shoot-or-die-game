@@ -60,10 +60,12 @@ const projectiles = [];
 function animate() {
   requestAnimationFrame(animate);
   // For each projectile within the projectiles array we call the projectile update function
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   projectiles.forEach(projectile => {
     projectile.update();
   }) 
 }
+
 window.addEventListener("click", (event) => {
   // To get the distance of the mouse from the center of the screen, we take the direction, which is event(wherever the mouse is clicking) and the center of the screen
 
