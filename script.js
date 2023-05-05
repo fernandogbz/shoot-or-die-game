@@ -65,6 +65,13 @@ function animate() {
   }) 
 }
 window.addEventListener("click", (event) => {
+  // To get the distance of the mouse from the center of the screen, we take the direction, which is event(wherever the mouse is clicking) and the center of the screen
+
+  //atan2 produces the angle based on the y and x (in that order idk why) distance of the mouse from a particular coordinate
+  const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2);
+
+  console.log(angle)
+
   projectiles.push(new Projectile(
     canvas.width / 2,
     canvas.height / 2,
