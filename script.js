@@ -52,15 +52,14 @@ const y = canvas.height /2;
 
 const player = new Player(x, y, 30, 'blue'); // x, y, radius, color
 
-//Player calls draw function
-player.draw();
-
 const projectiles = [];
 
 function animate() {
   requestAnimationFrame(animate);
   // For each projectile within the projectiles array we call the projectile update function
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+//Player calls draw function
+player.draw();
   projectiles.forEach(projectile => {
     projectile.update();
   }) 
