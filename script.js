@@ -41,6 +41,7 @@ class Projectile {
   }
 
   update() {
+    this.draw();
     this.x = this.x + this.velocity.x;
     this.y = this.y + this.velocity.y;
   }
@@ -54,26 +55,27 @@ const player = new Player(x, y, 30, 'blue'); // x, y, radius, color
 //Player calls draw function
 player.draw();
 
-const projectiles = [];
+const projectile = new Projectile(
+  canvas.width / 2, // event.clientYX captures where the event happened (the position in the canvas)
+  canvas.height / 2, 
+  5, 
+  "red", 
+  {
+    x:1,
+    y:1
+  }
+); 
 
-// const projectile = new Projectile(
-//   canvas.width / 2, // event.clientYX captures where the event happened (the position in the canvas)
-//   canvas.height / 2, 
-//   5, 
-//   "red", 
-//   {
-//     x:1,
-//     y:1
-//   }
-// ); 
+const projectiles = [projectile];
 
 function animate() {
   requestAnimationFrame(animate);
-  projectile.draw();
-  projectile.update(); 
+  // For each projectile within the projectiles array we call the projectile update function
+  projectiles.forEach(projectile => {
+    projectile.update();
+  }) 
 }
-
 window.addEventListener("click", (event) => {
 });
 
-animate();
+animate()
