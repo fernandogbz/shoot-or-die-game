@@ -70,17 +70,17 @@ window.addEventListener("click", (event) => {
   //atan2 produces the angle based on the y and x (in that order idk why) distance of the mouse from a particular coordinate
   const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2);
 
-  console.log(angle)
+  const velocity = {
+    x: Math.cos(angle), // to get the x velocity reference math.cos, cause cosine is always for the x adjacent axis. This is gonna return any number negative one to one
+    y:Math.sin(angle) // same than above, returns any number negative. But cosine and sine together are going to produce two different results to have a perfect ratio to start pushing the projectile to wherever the player clicks on the screen
+  }
 
   projectiles.push(new Projectile(
     canvas.width / 2,
     canvas.height / 2,
     5,
     'red',
-    {
-      x:1,
-      y:1
-    }
+    velocity
     ))
 });
 
