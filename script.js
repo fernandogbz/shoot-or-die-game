@@ -55,18 +55,7 @@ const player = new Player(x, y, 30, 'blue'); // x, y, radius, color
 //Player calls draw function
 player.draw();
 
-const projectile = new Projectile(
-  canvas.width / 2, // event.clientYX captures where the event happened (the position in the canvas)
-  canvas.height / 2, 
-  5, 
-  "red", 
-  {
-    x:1,
-    y:1
-  }
-); 
-
-const projectiles = [projectile];
+const projectiles = [];
 
 function animate() {
   requestAnimationFrame(animate);
@@ -76,6 +65,16 @@ function animate() {
   }) 
 }
 window.addEventListener("click", (event) => {
+  projectiles.push(new Projectile(
+    canvas.width / 2,
+    canvas.height / 2,
+    5,
+    'red',
+    {
+      x:1,
+      y:1
+    }
+    ))
 });
 
 animate()
