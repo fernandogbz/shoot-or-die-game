@@ -75,8 +75,8 @@ const x = canvas.width / 2;
 const y = canvas.height /2;
 
 const player = new Player(x, y, 30, 'blue'); // x, y, radius, color
-
 const projectiles = [];
+const enemies = [];
 
 function spawnEnemies(){
   // The first parameter of setInterval is the callback function (the code that is actually called for each specific interval specified) and the second is the time that it's going to go by between iteration of this call in miliseconds
@@ -117,3 +117,4 @@ window.addEventListener("click", (event) => {
 });
 
 animate()
+spawnEnemies()
