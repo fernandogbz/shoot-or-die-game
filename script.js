@@ -103,6 +103,10 @@ player.draw();
   projectiles.forEach(projectile => {
     projectile.update();
   }) 
+
+  enemies.forEach(enemy => {
+    enemy.update();
+  });
 }
 
 window.addEventListener("click", (event) => {
