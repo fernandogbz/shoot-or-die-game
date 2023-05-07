@@ -78,6 +78,13 @@ const player = new Player(x, y, 30, 'blue'); // x, y, radius, color
 
 const projectiles = [];
 
+function spawnEnemies(){
+  // The first parameter of setInterval is the callback function (the code that is actually called for each specific interval specified) and the second is the time that it's going to go by between iteration of this call in miliseconds
+  setInterval(()=> {
+    console.log("go");
+  }, 1000)
+};
+
 function animate() {
   requestAnimationFrame(animate);
   // For each projectile within the projectiles array we call the projectile update function
