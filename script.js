@@ -81,7 +81,16 @@ const enemies = [];
 function spawnEnemies(){
   // The first parameter of setInterval is the callback function (the code that is actually called for each specific interval specified) and the second is the time that it's going to go by between iteration of this call in miliseconds
   setInterval(()=> {
-    console.log("go");
+    const x = 100;
+    const y = 100;
+    const radius = 30;
+    const color = "green";
+    const velocity = {
+      x:1, y:1
+    }
+
+    enemies.push(new Enemy(x, y, radius, color, velocity))
+    console.log(enemies)
   }, 1000)
 };
 
