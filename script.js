@@ -81,13 +81,17 @@ const enemies = [];
 function spawnEnemies(){
   // The first parameter of setInterval is the callback function (the code that is actually called for each specific interval specified) and the second is the time that it's going to go by between iteration of this call in miliseconds
   setInterval(()=> {
-    const x = 100;
-    const y = 100;
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
     const radius = 30;
     const color = "green";
-    const velocity = {
-      x:1, y:1
-    }
+
+    const angle = Math.atan2(canvas.height / 2 - y , canvas.width / 2 - x);
+
+  const velocity = {
+    x: Math.cos(angle),
+    y:Math.sin(angle)
+  }
 
     enemies.push(new Enemy(x, y, radius, color, velocity))
     console.log(enemies)
