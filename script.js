@@ -81,9 +81,9 @@ const enemies = [];
 function spawnEnemies(){
   // The first parameter of setInterval is the callback function (the code that is actually called for each specific interval specified) and the second is the time that it's going to go by between iteration of this call in miliseconds
   setInterval(()=> {
-    const x = Math.random() * canvas.width;
-    const y = Math.random() * canvas.height;
     const radius = 30;
+    const x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius; // if the value for math.random is less than .5 assign the value 0 - radius(this is 0 in the canvas minus the radius of the enemy to spawn it outside the canvas on the left), but if it's greater execute the second value (which spawns enemies on the right hand of the screen) 
+    const y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
     const color = "green";
 
     const angle = Math.atan2(canvas.height / 2 - y , canvas.width / 2 - x);
