@@ -79,7 +79,7 @@ const enemies = [];
 
 function spawnEnemies(){
   // The first parameter of setInterval is the callback function (the code that is actually called for each specific interval specified) and the second is the time that it's going to go by between iteration of this call in miliseconds
-  setInterval(()=> {
+  // setInterval(()=> {
     const radius = Math.random() * (30 - 5) + 5; // generate a random number up to 30, and to to create enemies from different sizes between 5 and 30 of radius, subtract the minimum to the maximum, and add the minimum to the whole math.random
 
     let x;
@@ -103,7 +103,7 @@ function spawnEnemies(){
 
     enemies.push(new Enemy(x, y, radius, color, velocity))
     console.log(enemies)
-  }, 1000)
+  // }, 1000)
 };
 
 function animate() {
@@ -118,6 +118,11 @@ player.draw();
 
   enemies.forEach(enemy => {
     enemy.update();
+
+    projectiles.forEach(projectile => {
+      const distance = Math.hypot(projectiles.x - enemy.x, projectile.y - enemy.y) // hypot stands for hypotenuse, which is fancy speak for the distance between two points
+      console.log(distance)
+    })
   });
 }
 
