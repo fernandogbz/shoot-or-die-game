@@ -18,8 +18,7 @@ class Player {
   draw() {
     ctx.beginPath()
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false); //x, y, radius, start angle, end angle and drawCounterClockwise
-    // to specify the color
-    ctx.fillStyle = this.color;
+    ctx.fillStyle = this.color; // to specify the color
     ctx.fill();
   }
 }
@@ -81,7 +80,7 @@ const enemies = [];
 function spawnEnemies(){
   // The first parameter of setInterval is the callback function (the code that is actually called for each specific interval specified) and the second is the time that it's going to go by between iteration of this call in miliseconds
   setInterval(()=> {
-    const radius = 30;
+    const radius = Math.random() * (30 - 5) + 5; // generate a random number up to 30, and to to create enemies from different sizes between 5 and 30 of radius, subtract the minimum to the maximum, and add the minimum to the whole math.random
 
     let x;
     let y;
@@ -93,7 +92,7 @@ function spawnEnemies(){
       x = Math.random() * canvas.width;
       y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
     }
-    const color = "green";
+    const color = "green"; 
     
     const angle = Math.atan2(canvas.height / 2 - y , canvas.width / 2 - x);
 
