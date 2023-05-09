@@ -106,8 +106,9 @@ function spawnEnemies(){
   }, 1000)
 };
 
+let animationId;
 function animate() {
-  requestAnimationFrame(animate);
+  animationId = requestAnimationFrame(animate);
   // For each projectile within the projectiles array we call the projectile update function
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 //Player calls draw function
@@ -118,8 +119,17 @@ player.draw();
 
   enemies.forEach((enemy, index) => {
     enemy.update();
+    // Distance between the player and the enemy
+    const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y)
+    
+    // End game
+    if(distance - enemy.radius - player.radius < 1) {
+      console.log("Game Over");
+      cancelAnimationFrame(animationId);
+    }
 
     projectiles.forEach((projectile, projectileIndex) => {
+      // Distance between the projectile and the enemy
       const distance = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y) // hypot stands for hypotenuse, which is fancy speak for the distance between two points
 
       // Detect if the projectile hits the enemy
