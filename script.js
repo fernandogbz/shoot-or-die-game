@@ -116,13 +116,16 @@ player.draw();
     projectile.update();
   }) 
 
-  enemies.forEach(enemy => {
+  enemies.forEach((enemy, index) => {
     enemy.update();
 
-    projectiles.forEach(projectile => {
+    projectiles.forEach((projectile, projectileIndex) => {
       const distance = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y) // hypot stands for hypotenuse, which is fancy speak for the distance between two points
+
+      // Detect if the projectile hits the enemy
       if(distance - enemy.radius - projectile.radius < 1) {
-        console.log("remove from the screen");
+        enemies.splice(index, 1)
+        projectiles.splice(projectileIndex, 1)
       }
     })
   });
