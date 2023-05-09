@@ -120,8 +120,10 @@ player.draw();
     enemy.update();
 
     projectiles.forEach(projectile => {
-      const distance = Math.hypot(projectiles.x - enemy.x, projectile.y - enemy.y) // hypot stands for hypotenuse, which is fancy speak for the distance between two points
-      console.log(distance)
+      const distance = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y) // hypot stands for hypotenuse, which is fancy speak for the distance between two points
+      if(distance - enemy.radius - projectile.radius < 1) {
+        console.log("remove from the screen");
+      }
     })
   });
 }
