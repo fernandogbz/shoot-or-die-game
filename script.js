@@ -73,7 +73,7 @@ class Enemy {
 const x = canvas.width / 2;
 const y = canvas.height /2;
 
-const player = new Player(x, y, 30, 'blue'); // x, y, radius, color
+const player = new Player(x, y, 15, 'white'); // x, y, radius, color
 const projectiles = [];
 const enemies = [];
 
@@ -158,15 +158,16 @@ window.addEventListener("click", (event) => {
   const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2); // To get the distance of the mouse from the center of the screen, we take the direction, which is event(wherever the mouse is clicking) and the center of the screen
 
   const velocity = {
-    x: Math.cos(angle), // to get the x velocity reference math.cos, cause cosine is always for the x adjacent axis. This is gonna return any number negative one to one
-    y:Math.sin(angle) // same than above, returns any number negative. But cosine and sine together are going to produce two different results to have a perfect ratio to start pushing the projectile to wherever the player clicks on the screen
+    x: Math.cos(angle) * 5, // to get the x velocity reference math.cos, cause cosine is always for the x adjacent axis. This is gonna return any number negative one to one
+    y:Math.sin(angle) * 5// same than above, returns any number negative. But cosine and sine together are going to produce two different results to have a perfect ratio to start pushing the projectile to wherever the player clicks on the screen
   }
-
+  
+  //Creates projectiles
   projectiles.push(new Projectile(
     canvas.width / 2,
     canvas.height / 2,
     5,
-    'red',
+    'white',
     velocity
     ))
 });
