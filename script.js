@@ -92,7 +92,7 @@ function spawnEnemies(){
       x = Math.random() * canvas.width;
       y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
     }
-    const color = "green"; 
+    const color = `hsl(${Math.random() * 360}, 50%, 50%)`; // hsl stands for hue, saturation and lightness, template literal math.random will pick a random number between 0 and 360 and generate random enemies with those colors every time an enemy is created
     
     const angle = Math.atan2(canvas.height / 2 - y , canvas.width / 2 - x);
 
