@@ -110,7 +110,8 @@ let animationId;
 function animate() {
   animationId = requestAnimationFrame(animate);
   // For each projectile within the projectiles array we call the projectile update function
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'rgba(0, 0, 0 , 0.1)'; // background color
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 //Player calls draw function
 player.draw();
   projectiles.forEach((projectile, index )=> {
