@@ -142,11 +142,18 @@ player.draw();
 
       // Detect if the projectile hits the enemy
       if(distance - enemy.radius - projectile.radius < 1) {
-        setTimeout(() => {
-          enemies.splice(index, 1)
-          projectiles.splice(projectileIndex, 1)
-        }, 0);
 
+        if(enemy.radius - 10 > 10) { // enemy radius alone will create very small enemies and makes it difficult to see (might be a next level of difficulty to create later) but for now when the enemy is less than 10px will be removed
+          enemy.radius -= 10;
+          setTimeout(() => {
+            projectiles.splice(projectileIndex, 1)
+          }, 0);
+        } else {
+          setTimeout(() => {
+            enemies.splice(index, 1)
+            projectiles.splice(projectileIndex, 1)
+          }, 0);
+        } 
       }
     })
   });
