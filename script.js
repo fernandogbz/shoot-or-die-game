@@ -113,8 +113,15 @@ function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 //Player calls draw function
 player.draw();
-  projectiles.forEach(projectile => {
+  projectiles.forEach((projectile, index )=> {
     projectile.update();
+
+    // Remove projectile if it's off the screen
+    if(projectile.x + projectile.radius < 0 || projectile.x - projectile.radius > canvas.width || projectile.y + projectile.radius < 0 || projectile.y - projectile.radius > canvas.height) {
+      setTimeout(() => {
+        projectiles.splice(index, 1)
+      }, 0);
+    }
   }) 
 
   enemies.forEach((enemy, index) => {
@@ -134,7 +141,7 @@ player.draw();
 
       // Detect if the projectile hits the enemy
       if(distance - enemy.radius - projectile.radius < 1) {
-        setTimeout(() =>{
+        setTimeout(() => {
           enemies.splice(index, 1)
           projectiles.splice(projectileIndex, 1)
         }, 0);
@@ -145,10 +152,9 @@ player.draw();
 }
 
 window.addEventListener("click", (event) => {
-  // To get the distance of the mouse from the center of the screen, we take the direction, which is event(wherever the mouse is clicking) and the center of the screen
-
+  console.log(projectiles)
   //atan2 produces the angle based on the y and x (in that order idk why) distance of the mouse from a particular coordinate
-  const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2);
+  const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2); // To get the distance of the mouse from the center of the screen, we take the direction, which is event(wherever the mouse is clicking) and the center of the screen
 
   const velocity = {
     x: Math.cos(angle), // to get the x velocity reference math.cos, cause cosine is always for the x adjacent axis. This is gonna return any number negative one to one
