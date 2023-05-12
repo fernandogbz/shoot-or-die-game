@@ -166,6 +166,14 @@ player.draw();
       // Detect if the projectile hits the enemy
       if(distance - enemy.radius - projectile.radius < 1) 
       {
+        for(let i = 0; i < 8; i++) {
+          particles.push(new Particle(projectile.x, projectile.y, 3, enemy.color, {
+            x: Math.random() - 0.5, 
+            y: Math.random() - 0.5
+          })
+          )
+        }
+
         if(enemy.radius - 10 > 5) { // enemy radius alone will create very small enemies and makes it difficult to see (might be a next level of difficulty to create later) but for now when the enemy is less than 10px will be removed
           gsap.to(enemy, {
             radius: enemy.radius - 10
