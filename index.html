@@ -14,10 +14,14 @@
 			referrerpolicy="no-referrer"
 			defer
 		></script>
+		<!-- Tailwind CSS -->
+		<script src="https://cdn.tailwindcss.com"></script>
 		<script src="script.js" defer></script>
 	</head>
 	<body>
-		<div><span>Score: </span><span>0</span></div>
+		<div class="fixed text-white text-sm ml-2 mt-2 select-none">
+			<span>Score: </span><span id="scoreNumber">0</span>
+		</div>
 		<canvas></canvas>
 	</body>
 </html>
