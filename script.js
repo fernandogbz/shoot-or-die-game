@@ -109,10 +109,18 @@ class Particle {
 const x = canvas.width / 2;
 const y = canvas.height /2;
 
-const player = new Player(x, y, 15, 'white'); // x, y, radius, color
-const projectiles = [];
-const enemies = [];
-const particles = [];
+let player = new Player(x, y, 15, 'white'); // x, y, radius, color
+let projectiles = [];
+let enemies = [];
+let particles = [];
+
+function init() {
+  player = new Player(x, y, 15, 'white'); // x, y, radius, color
+  projectiles = [];
+  enemies = [];
+  particles = [];
+
+}
 
 function spawnEnemies(){
   // The first parameter of setInterval is the callback function (the code that is actually called for each specific interval specified) and the second is the time that it's going to go by between iteration of this call in miliseconds
