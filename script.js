@@ -183,6 +183,7 @@ function animate() {
       console.log("Game Over");
       cancelAnimationFrame(animationId);
       modalElement.style.display = "flex";
+      bigScore.innerHTML = score;
     }
 
     projectiles.forEach((projectile, projectileIndex) => {
@@ -252,7 +253,7 @@ window.addEventListener("click", (event) => {
 });
 
 startGameBtn.addEventListener("click", () => {
-  animate()
-  spawnEnemies()
+  animate();
+  spawnEnemies();
   modalElement.style.display = "none";
 })
