@@ -136,8 +136,13 @@ function animate() {
   // For each projectile within the projectiles array we call the projectile update function
   ctx.fillStyle = 'rgba(0, 0, 0 , 0.1)'; // background color
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-//Player calls draw function
-player.draw();
+//Player calls draw function 
+  player.draw();
+
+  particles.forEach(particle => {
+    particle.update();
+  })
+
   projectiles.forEach((projectile, index )=> {
     projectile.update();
 
