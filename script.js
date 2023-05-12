@@ -250,7 +250,7 @@ window.addEventListener("click", (event) => {
 });
 
 startGameBtn.addEventListener("click", () => {
-  console.log("go");
   animate()
   spawnEnemies()
+  modalElement.style.display = "none";
 })
