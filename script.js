@@ -189,8 +189,6 @@ function animate() {
       if(distance - enemy.radius - projectile.radius < 1) 
       {
 
-        //Increase the score
-
         //Create explosions
         for(let i = 0; i < enemy.radius * 2; i++) {
           particles.push(new Particle(projectile.x, projectile.y, Math.random() * 2, enemy.color, {
@@ -201,6 +199,11 @@ function animate() {
         }
 
         if(enemy.radius - 10 > 5) { // enemy radius alone will create very small enemies and makes it difficult to see (might be a next level of difficulty to create later) but for now when the enemy is less than 10px will be removed
+          
+          //Increase the score if enemy shrinks
+          score += 100;
+          scoreSpan.innerHTML = score;
+
           gsap.to(enemy, {
             radius: enemy.radius - 10
           });
@@ -208,6 +211,12 @@ function animate() {
             projectiles.splice(projectileIndex, 1)
           }, 0);
         } else {
+          //remove from scene altogether
+          
+          //Increase the score if enemy is killed
+          score += 250;
+          scoreSpan.innerHTML = score;
+          
           setTimeout(() => {
             enemies.splice(index, 1)
             projectiles.splice(projectileIndex, 1)
