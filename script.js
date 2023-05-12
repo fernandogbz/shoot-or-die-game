@@ -181,6 +181,7 @@ function animate() {
     if(distance - enemy.radius - player.radius < 1) {
       console.log("Game Over");
       cancelAnimationFrame(animationId);
+      modalElement.style.display = "flex";
     }
 
     projectiles.forEach((projectile, projectileIndex) => {
