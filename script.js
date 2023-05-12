@@ -5,6 +5,7 @@ canvas.width = innerWidth;
 canvas.height = innerHeight;
 
 const scoreSpan = document.querySelector("#scoreNumber");
+const startGameBtn = document.querySelector("#startGame");
 
 // class for the player
 class Player {
