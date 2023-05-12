@@ -77,19 +77,24 @@ class Particle {
     this.radius = radius;
     this.color = color;
     this.velocity = velocity;
+    this.alpha = 1;
   }
 
   draw() {
-    ctx.beginPath()
+    ctx.save();
+    ctx.globalAlpha= this.alpha;
+    ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
     ctx.fillStyle = this.color;
     ctx.fill();
+    ctx.restore();
   }
 
   update() {
     this.draw();
     this.x = this.x + this.velocity.x;
     this.y = this.y + this.velocity.y;
+    this.alpha -= 0.01;
   }
 }
 
@@ -139,8 +144,12 @@ function animate() {
 //Player calls draw function 
   player.draw();
 
-  particles.forEach(particle => {
-    particle.update();
+  particles.forEach((particle, index) => {
+    if(particle.alpha <= 0) {
+      particles.splice(index, 1);
+    } else {
+      particle.update();
+    }
   })
 
   projectiles.forEach((projectile, index )=> {
