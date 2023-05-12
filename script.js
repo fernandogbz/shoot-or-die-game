@@ -5,7 +5,7 @@ canvas.width = innerWidth;
 canvas.height = innerHeight;
 
 const scoreSpan = document.querySelector("#scoreNumber");
-const startGameBtn = document.querySelector("#startGame");
+const startGameBtn = document.querySelector("#startGameBtn");
 
 // class for the player
 class Player {
@@ -248,5 +248,8 @@ window.addEventListener("click", (event) => {
     ))
 });
 
-animate()
-spawnEnemies()
+startGameBtn.addEventListener("click", () => {
+  console.log("go");
+  animate()
+  spawnEnemies()
+})
