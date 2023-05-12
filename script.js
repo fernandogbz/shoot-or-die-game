@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
-const score = document.querySelector("#scoreNumber");
+const scoreSpan = document.querySelector("#scoreNumber");
 
 // class for the player
 class Player {
@@ -141,6 +141,7 @@ function spawnEnemies(){
 };
 
 let animationId;
+let score = 0;
 function animate() {
   animationId = requestAnimationFrame(animate);
   // For each projectile within the projectiles array we call the projectile update function
@@ -187,6 +188,9 @@ function animate() {
       // Detect if the projectile hits the enemy
       if(distance - enemy.radius - projectile.radius < 1) 
       {
+
+        //Increase the score
+
         //Create explosions
         for(let i = 0; i < enemy.radius * 2; i++) {
           particles.push(new Particle(projectile.x, projectile.y, Math.random() * 2, enemy.color, {
