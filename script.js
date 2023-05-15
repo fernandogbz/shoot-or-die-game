@@ -9,6 +9,17 @@ const startGameBtn = document.querySelector("#startGameBtn");
 const modalElement = document.querySelector("#modalElement");
 const bigScore = document.querySelector("#bigScore");
 
+let events = ["mousemove", "touchmove"];
+
+function isTouchDevice() {
+  try {
+    document.createEvent("TouchEvent");
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 // class for the player
 class Player {
   // The constructor is called each time you instiate a new version of the player class, and we're gonna give it these individual properties to differentiate it from other players we might create
@@ -242,7 +253,8 @@ function animate() {
   });
 }
 
-window.addEventListener("click", (event) => {
+events.forEach((eventType) => {
+window.addEventListener((eventType), (event) => {
   console.log(projectiles)
   //atan2 produces the angle based on the y and x (in that order idk why) distance of the mouse from a particular coordinate
   const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2); // To get the distance of the mouse from the center of the screen, we take the direction, which is event(wherever the mouse is clicking) and the center of the screen
@@ -260,6 +272,7 @@ window.addEventListener("click", (event) => {
     'white',
     velocity
     ))
+})
 });
 
 startGameBtn.addEventListener("click", () => {
