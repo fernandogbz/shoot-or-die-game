@@ -9,7 +9,7 @@ const startGameBtn = document.querySelector("#startGameBtn");
 const modalElement = document.querySelector("#modalElement");
 const bigScore = document.querySelector("#bigScore");
 
-let events = ["mousemove", "touchmove"];
+let events = ["click", "touchstart"];
 
 function isTouchDevice() {
   try {
