@@ -257,7 +257,7 @@ events.forEach((eventType) => {
 window.addEventListener((eventType), (event) => {
   console.log(projectiles)
   //atan2 produces the angle based on the y and x (in that order idk why) distance of the mouse from a particular coordinate
-  const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2); // To get the distance of the mouse from the center of the screen, we take the direction, which is event(wherever the mouse is clicking) and the center of the screen
+  const angle = !isTouchDevice() ? Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2) : Math.atan2(event.touches[0].clientY - canvas.height / 2, event.touches[0].clientX - canvas.width / 2); // To get the distance of the mouse from the center of the screen, we take the direction, which is event(wherever the mouse is clicking) and the center of the screen
 
   const velocity = {
     x: Math.cos(angle) * 5, // to get the x velocity reference math.cos, cause cosine is always for the x adjacent axis. This is gonna return any number negative one to one
