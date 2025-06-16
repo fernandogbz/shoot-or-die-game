@@ -261,7 +261,7 @@ function animate() {
           // enemy radius alone will create very small enemies and makes it difficult to see (might be a next level of difficulty to create later) but for now when the enemy is less than 10px will be removed
 
           //Increase the score if enemy shrinks
-          score += 100;
+          score += 50;
           scoreSpan.innerHTML = score;
 
           gsap.to(enemy, {
@@ -274,7 +274,7 @@ function animate() {
           //remove from scene altogether
 
           //Increase the score if enemy is killed
-          score += 250;
+          score += 100;
           scoreSpan.innerHTML = score;
 
           setTimeout(() => {
