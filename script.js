@@ -169,10 +169,14 @@ function spawnEnemies() {
     const color = `hsl(${Math.random() * 360}, 50%, 50%)`; // hsl stands for hue, saturation and lightness, template literal math.random will pick a random number between 0 and 360 and generate random enemies with those colors every time an enemy is created
 
     const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
-
+    // The velocityMultiplier increases enemy speed as the score increases:
+    // - Starts at 1 when score is 0
+    // - Increases linearly, reaching x1.5 at 20,000 score
+    // - Reaches a maximum of x2 at 40,000 score
+    const velocityMultiplier = Math.min(1 + score / 40000, 2);
     const velocity = {
-      x: Math.cos(angle),
-      y: Math.sin(angle),
+      x: Math.cos(angle) * velocityMultiplier,
+      y: Math.sin(angle) * velocityMultiplier,
     };
 
     enemies.push(new Enemy(x, y, radius, color, velocity));
