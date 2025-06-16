@@ -126,6 +126,7 @@ let enemies;
 let particles;
 let score;
 let spawnEnemiesIntervalId;
+let isPaused = false;
 
 function init() {
   // clear canvas background color
@@ -186,6 +187,7 @@ function spawnEnemies() {
 
 let animationId;
 function animate() {
+  if (isPaused) return;
   animationId = requestAnimationFrame(animate);
   // For each projectile within the projectiles array we call the projectile update function
   ctx.fillStyle = "rgba(0, 0, 0 , 0.1)"; // background color
@@ -318,4 +320,14 @@ startGameBtn.addEventListener("click", () => {
   animate();
   spawnEnemies();
   modalElement.style.display = "none";
+});
+
+const pauseBtn = document.getElementById("pauseBtn");
+const pauseIcon = document.getElementById("pauseIcon");
+pauseBtn.addEventListener("click", () => {
+  isPaused = !isPaused;
+  pauseIcon.innerHTML = isPaused ? "&#9654;" : "&#10073;&#10073;"; // ▶ or ||
+  if (!isPaused) {
+    animate();
+  }
 });

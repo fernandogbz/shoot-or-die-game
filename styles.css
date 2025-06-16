@@ -2,3 +2,26 @@ body {
   margin: 0;
   background-color: black;
 }
+
+#pauseBtn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 30px;
+  height: 30px;
+  padding: 0 0 6px 0;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#pauseIcon.material-icons {
+  font-size: 20px;
+  line-height: 1;
+}
