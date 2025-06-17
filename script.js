@@ -494,3 +494,11 @@ restartGameBtn.addEventListener("click", (event) => {
   spawnEnemies();
   endModal.style.display = "none";
 });
+
+// Event listener for the 'p' key
+window.addEventListener("keydown", (event) => {
+  if (event.key === "p" || event.key === "P") {
+    // Trigger the pause button click
+    pauseBtn.click();
+  }
+});
