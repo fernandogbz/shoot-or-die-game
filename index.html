@@ -31,23 +31,61 @@
       <div>Time: <span id="timer">0</span></div>
       <div>Speed: <span id="velocityMultiplier">1.0</span>x</div>
     </div>
-    <!-- Start Game UI -->
+    <!-- Start Game Modal -->
     <div
       class="fixed inset-0 flex items-center justify-center select-none"
-      id="modalElement"
+      id="startModal"
     >
-      <!-- Container -->
       <div
         class="bg-white max-w-md w-full p-6 rounded-3xl text-center select-none"
       >
-        <h1 class="text-4xl font-bold leading-none" id="bigScore">0</h1>
-        <p class="text-sm text-gray-700 mb-4">Points</p>
+        <h1 class="text-4xl font-bold mb-2 leading-none">Shoot or Die</h1>
+        <p class="text-sm text-gray-700 mb-4">Click to shoot, avoid enemies!</p>
         <div>
           <button
             class="bg-blue-500 text-white w-9/12 py-3 rounded-full"
             id="startGameBtn"
           >
             Start Game
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div
+      class="fixed inset-0 flex items-center justify-center select-none"
+      id="endModal"
+      style="display: none"
+    >
+      <div
+        class="bg-white max-w-md w-full p-6 rounded-3xl text-center select-none"
+      >
+        <p class="text-xl font-bold mb-2">Ops! You died 💀</p>
+        <h1 class="text-4xl font-bold leading-none" id="bigScore">0</h1>
+        <p class="text-sm text-gray-700 mb-4">Points</p>
+
+        <!-- Stats section -->
+        <div class="text-center mb-4 p-4 bg-gray-100 rounded-lg">
+          <h2 class="text-xl font-bold mb-2">Game Stats</h2>
+          <div class="grid grid-cols-2 gap-2 gap-x-20 text-sm text-left pl-10">
+            <p>Time:</p>
+            <span id="finalTime">0s</span>
+            <p>Max Speed:</p>
+            <span id="maxSpeed">1.0x</span>
+            <p>Enemies Killed:</p>
+            <span id="enemiesKilled">0</span>
+            <p>Projectiles Shot:</p>
+            <span id="projectilesShot">0</span>
+          </div>
+        </div>
+
+        <div>
+          <button
+            class="bg-blue-500 text-white w-9/12 py-3 rounded-full"
+            id="restartGameBtn"
+          >
+            Play Again
           </button>
         </div>
       </div>
