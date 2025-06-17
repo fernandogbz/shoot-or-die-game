@@ -127,6 +127,10 @@ let particles;
 let score;
 let spawnEnemiesIntervalId;
 let isPaused = false;
+let gameStartTime;
+let timerIntervalId;
+let pausedTime = 0;
+let totalPausedTime = 0;
 
 function init() {
   // clear canvas background color
@@ -146,6 +150,34 @@ function init() {
   if (spawnEnemiesIntervalId) {
     clearInterval(spawnEnemiesIntervalId);
   }
+
+  // Initialize timer
+  gameStartTime = Date.now();
+  totalPausedTime = 0;
+  if (timerIntervalId) {
+    clearInterval(timerIntervalId);
+  }
+  updateTimer();
+  timerIntervalId = setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+  const currentTime = Date.now();
+  const elapsedSeconds = Math.floor(
+    (currentTime - gameStartTime - totalPausedTime) / 1000
+  );
+
+  // Format time as minutes:seconds
+  const minutes = Math.floor(elapsedSeconds / 60);
+  const seconds = elapsedSeconds % 60;
+
+  // Format with leading zeros and show minutes only when needed
+  const timeDisplay =
+    minutes > 0
+      ? `${minutes}:${seconds.toString().padStart(2, "0")}m`
+      : `${seconds}s`;
+
+  document.getElementById("timer").textContent = timeDisplay;
 }
 
 function spawnEnemies() {
@@ -178,6 +210,10 @@ function spawnEnemies() {
     // - Increases linearly, reaching x1.5 at 20,000 score
     // - Reaches a maximum of x2 at 40,000 score
     const velocityMultiplier = Math.min(1 + score / 40000, 2);
+    // Update the velocity multiplier display
+    document.getElementById("velocityMultiplier").textContent =
+      velocityMultiplier.toFixed(1);
+
     const velocity = {
       x: Math.cos(angle) * velocityMultiplier,
       y: Math.sin(angle) * velocityMultiplier,
@@ -233,6 +269,7 @@ function animate() {
       console.log("Game Over");
       cancelAnimationFrame(animationId);
       clearInterval(spawnEnemiesIntervalId);
+      clearInterval(timerIntervalId);
       modalElement.style.display = "flex";
       bigScore.innerHTML = score;
     }
@@ -330,7 +367,19 @@ const pauseIcon = document.getElementById("pauseIcon");
 pauseBtn.addEventListener("click", () => {
   isPaused = !isPaused;
   pauseIcon.innerHTML = isPaused ? "&#9654;" : "&#10073;&#10073;"; // ▶ or ||
-  if (!isPaused) {
+
+  if (isPaused) {
+    // Store the time when paused
+    pausedTime = Date.now();
+    // Clear the timer interval
+    clearInterval(timerIntervalId);
+    timerIntervalId = null;
+  } else {
+    // Calculate total paused time
+    totalPausedTime += Date.now() - pausedTime;
+    // Resume animation
     animate();
+    // Start a new timer interval
+    timerIntervalId = setInterval(updateTimer, 1000);
   }
 });
