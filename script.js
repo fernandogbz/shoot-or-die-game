@@ -11,6 +11,9 @@ const bigScore = document.querySelector("#bigScore");
 const startModal = document.getElementById("startModal");
 const endModal = document.getElementById("endModal");
 const restartGameBtn = document.getElementById("restartGameBtn");
+const pauseModal = document.getElementById("pauseModal");
+const resumeBtn = document.getElementById("resumeBtn");
+const quitBtn = document.getElementById("quitBtn");
 
 let events = ["click", "touchstart"];
 
@@ -389,8 +392,11 @@ startGameBtn.addEventListener("click", () => {
 const pauseBtn = document.getElementById("pauseBtn");
 const pauseIcon = document.getElementById("pauseIcon");
 pauseBtn.addEventListener("click", () => {
+  // Don't allow pausing if the game over modal is showing
+  if (endModal.style.display === "flex") return;
+
   isPaused = !isPaused;
-  pauseIcon.innerHTML = isPaused ? "&#9654;" : "&#10073;&#10073;"; // ▶ or ||
+  pauseIcon.textContent = isPaused ? "play_arrow" : "pause";
 
   if (isPaused) {
     // Store the time when paused
@@ -398,6 +404,17 @@ pauseBtn.addEventListener("click", () => {
     // Clear the timer interval
     clearInterval(timerIntervalId);
     timerIntervalId = null;
+
+    // Update pause modal stats
+    document.getElementById("pauseTime").textContent =
+      document.getElementById("timer").textContent;
+    document.getElementById("pauseScore").textContent = score;
+    document.getElementById("pauseEnemiesKilled").textContent = enemiesKilled;
+    document.getElementById("pauseProjectilesShot").textContent =
+      projectilesShot;
+
+    // Show pause modal
+    pauseModal.style.display = "flex";
   } else {
     // Calculate total paused time
     totalPausedTime += Date.now() - pausedTime;
@@ -405,7 +422,39 @@ pauseBtn.addEventListener("click", () => {
     animate();
     // Start a new timer interval
     timerIntervalId = setInterval(updateTimer, 1000);
+    // Hide pause modal
+    pauseModal.style.display = "none";
   }
+});
+
+// Add event listener for resume button
+resumeBtn.addEventListener("click", () => {
+  isPaused = false;
+  pauseIcon.textContent = "pause";
+  pauseModal.style.display = "none";
+
+  // Calculate total paused time
+  totalPausedTime += Date.now() - pausedTime;
+  // Resume animation
+  animate();
+  // Start a new timer interval
+  timerIntervalId = setInterval(updateTimer, 1000);
+});
+
+// Add event listener for quit button
+quitBtn.addEventListener("click", () => {
+  // Reset game state
+  cancelAnimationFrame(animationId);
+  clearInterval(spawnEnemiesIntervalId);
+  clearInterval(timerIntervalId);
+
+  // Hide pause modal and show start modal
+  pauseModal.style.display = "none";
+  startModal.style.display = "flex";
+
+  // Reset pause state
+  isPaused = false;
+  pauseIcon.textContent = "pause";
 });
 
 // Add event listener for restart button
