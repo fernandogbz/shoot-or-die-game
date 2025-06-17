@@ -93,6 +93,44 @@
     <button id="pauseBtn">
       <span id="pauseIcon" class="material-icons">pause</span>
     </button>
+    <!-- Pause Modal -->
+    <div
+      class="fixed inset-0 flex items-center justify-center select-none"
+      id="pauseModal"
+      style="display: none"
+    >
+      <div
+        class="bg-white max-w-md w-full p-6 rounded-3xl text-center select-none"
+      >
+        <p class="leading-none text-sm text-gray-700 mb-4">Game Paused</p>
+
+        <!-- Current game stats while paused -->
+        <div class="text-center mb-6">
+          <h2 class="text-xl font-bold mb-2">Current Stats</h2>
+          <div class="grid grid-cols-2 gap-2 gap-x-20 text-sm text-left pl-10">
+            <p>Time: <span id="pauseTime">0s</span></p>
+            <p>Score: <span id="pauseScore">0</span></p>
+            <p>Enemies Killed: <span id="pauseEnemiesKilled">0</span></p>
+            <p>Projectiles Shot: <span id="pauseProjectilesShot">0</span></p>
+          </div>
+        </div>
+
+        <div class="flex justify-center gap-2">
+          <button
+            class="bg-red-500 text-white w-2/5 py-3 rounded-full mx-auto"
+            id="quitBtn"
+          >
+            Quit
+          </button>
+          <button
+            class="bg-blue-500 text-white w-2/5 py-3 rounded-full mx-auto"
+            id="resumeBtn"
+          >
+            Resume
+          </button>
+        </div>
+      </div>
+    </div>
     <canvas class="select-none"></canvas>
   </body>
 </html>
