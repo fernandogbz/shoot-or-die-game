@@ -8,6 +8,9 @@ const scoreSpan = document.querySelector("#scoreNumber");
 const startGameBtn = document.querySelector("#startGameBtn");
 const modalElement = document.querySelector("#modalElement");
 const bigScore = document.querySelector("#bigScore");
+const startModal = document.getElementById("startModal");
+const endModal = document.getElementById("endModal");
+const restartGameBtn = document.getElementById("restartGameBtn");
 
 let events = ["click", "touchstart"];
 
@@ -131,6 +134,9 @@ let gameStartTime;
 let timerIntervalId;
 let pausedTime = 0;
 let totalPausedTime = 0;
+let enemiesKilled = 0;
+let projectilesShot = 0;
+let maxSpeed = 1.0;
 
 function init() {
   // clear canvas background color
@@ -159,6 +165,11 @@ function init() {
   }
   updateTimer();
   timerIntervalId = setInterval(updateTimer, 1000);
+
+  // Reset stats
+  enemiesKilled = 0;
+  projectilesShot = 0;
+  maxSpeed = 1.0;
 }
 
 function updateTimer() {
@@ -210,6 +221,8 @@ function spawnEnemies() {
     // - Increases linearly, reaching x1.5 at 20,000 score
     // - Reaches a maximum of x2 at 40,000 score
     const velocityMultiplier = Math.min(1 + score / 40000, 2);
+    // Update max speed if current speed is higher
+    maxSpeed = Math.max(maxSpeed, velocityMultiplier);
     // Update the velocity multiplier display
     document.getElementById("velocityMultiplier").textContent =
       velocityMultiplier.toFixed(1);
@@ -270,7 +283,16 @@ function animate() {
       cancelAnimationFrame(animationId);
       clearInterval(spawnEnemiesIntervalId);
       clearInterval(timerIntervalId);
-      modalElement.style.display = "flex";
+
+      // Update final stats
+      document.getElementById("finalTime").textContent =
+        document.getElementById("timer").textContent;
+      document.getElementById("maxSpeed").textContent =
+        maxSpeed.toFixed(1) + "x";
+      document.getElementById("enemiesKilled").textContent = enemiesKilled;
+      document.getElementById("projectilesShot").textContent = projectilesShot;
+
+      endModal.style.display = "flex";
       bigScore.innerHTML = score;
     }
 
@@ -318,6 +340,7 @@ function animate() {
           //Increase the score if enemy is killed
           score += 100;
           scoreSpan.innerHTML = score;
+          enemiesKilled++; // Track kills
 
           setTimeout(() => {
             enemies.splice(index, 1);
@@ -352,6 +375,7 @@ events.forEach((eventType) => {
     projectiles.push(
       new Projectile(canvas.width / 2, canvas.height / 2, 5, "white", velocity)
     );
+    projectilesShot++;
   });
 });
 
@@ -359,7 +383,7 @@ startGameBtn.addEventListener("click", () => {
   init();
   animate();
   spawnEnemies();
-  modalElement.style.display = "none";
+  startModal.style.display = "none";
 });
 
 const pauseBtn = document.getElementById("pauseBtn");
@@ -382,4 +406,12 @@ pauseBtn.addEventListener("click", () => {
     // Start a new timer interval
     timerIntervalId = setInterval(updateTimer, 1000);
   }
+});
+
+// Add event listener for restart button
+restartGameBtn.addEventListener("click", () => {
+  init();
+  animate();
+  spawnEnemies();
+  endModal.style.display = "none";
 });
