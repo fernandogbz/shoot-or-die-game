@@ -382,7 +382,10 @@ events.forEach((eventType) => {
   });
 });
 
-startGameBtn.addEventListener("click", () => {
+startGameBtn.addEventListener("click", (event) => {
+  // Prevent the click from propagating to the window
+  event.stopPropagation();
+
   init();
   animate();
   spawnEnemies();
@@ -391,7 +394,10 @@ startGameBtn.addEventListener("click", () => {
 
 const pauseBtn = document.getElementById("pauseBtn");
 const pauseIcon = document.getElementById("pauseIcon");
-pauseBtn.addEventListener("click", () => {
+pauseBtn.addEventListener("click", (event) => {
+  // Prevent the click from propagating to the window
+  event.stopPropagation();
+
   // Don't allow pausing if the game over modal is showing
   if (endModal.style.display === "flex") return;
 
@@ -428,7 +434,9 @@ pauseBtn.addEventListener("click", () => {
 });
 
 // Add event listener for resume button
-resumeBtn.addEventListener("click", () => {
+resumeBtn.addEventListener("click", (event) => {
+  // Prevent the click from propagating to the window
+  event.stopPropagation();
   isPaused = false;
   pauseIcon.textContent = "pause";
   pauseModal.style.display = "none";
@@ -458,7 +466,10 @@ quitBtn.addEventListener("click", () => {
 });
 
 // Add event listener for restart button
-restartGameBtn.addEventListener("click", () => {
+restartGameBtn.addEventListener("click", (event) => {
+  // Prevent the click from propagating to the window
+  event.stopPropagation();
+
   init();
   animate();
   spawnEnemies();
