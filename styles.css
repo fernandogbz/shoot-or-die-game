@@ -30,3 +30,9 @@ body {
   width: 100%;
   height: 100%;
 }
+
+/* Another way of disable pauseBtn */
+/* #pauseBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+} */

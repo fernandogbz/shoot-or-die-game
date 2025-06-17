@@ -383,13 +383,14 @@ events.forEach((eventType) => {
 });
 
 startGameBtn.addEventListener("click", (event) => {
-  // Prevent the click from propagating to the window
   event.stopPropagation();
 
   init();
   animate();
   spawnEnemies();
   startModal.style.display = "none";
+  pauseBtn.className = "visible";
+  // pauseBtn.disabled = false; // Enable pause button when game starts
 });
 
 const pauseBtn = document.getElementById("pauseBtn");
