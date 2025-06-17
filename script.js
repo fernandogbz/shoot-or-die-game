@@ -155,6 +155,9 @@ function spawnEnemies() {
   }
 
   spawnEnemiesIntervalId = setInterval(() => {
+    // Don't spawn enemies if the game is paused
+    if (isPaused) return;
+
     const radius = Math.random() * (30 - 5) + 5; // generate a random number up to 30, and to to create enemies from different sizes between 5 and 30 of radius, subtract the minimum to the maximum, and add the minimum to the whole math.random
 
     let x;
