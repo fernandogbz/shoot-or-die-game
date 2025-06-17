@@ -141,6 +141,14 @@ let enemiesKilled = 0;
 let projectilesShot = 0;
 let maxSpeed = 1.0;
 
+const minEnemyRadius = 5;
+const maxEnemyRadius = 30;
+const projectileRadius = 5;
+const projectileSpeed = 5;
+const velocityMultiplierThreshold = 40000;
+const enemyShrinkAmount = 10;
+const minShrinkRadius = 5;
+
 function init() {
   // clear canvas background color
   ctx.fillStyle = "black"; // background color
@@ -204,7 +212,8 @@ function spawnEnemies() {
     // Don't spawn enemies if the game is paused
     if (isPaused) return;
 
-    const radius = Math.random() * (30 - 5) + 5; // generate a random number up to 30, and to to create enemies from different sizes between 5 and 30 of radius, subtract the minimum to the maximum, and add the minimum to the whole math.random
+    const radius =
+      Math.random() * (maxEnemyRadius - minEnemyRadius) + minEnemyRadius;
 
     let x;
     let y;
@@ -223,7 +232,10 @@ function spawnEnemies() {
     // - Starts at 1 when score is 0
     // - Increases linearly, reaching x1.5 at 20,000 score
     // - Reaches a maximum of x2 at 40,000 score
-    const velocityMultiplier = Math.min(1 + score / 40000, 2);
+    const velocityMultiplier = Math.min(
+      1 + score / velocityMultiplierThreshold,
+      2
+    );
     // Update max speed if current speed is higher
     maxSpeed = Math.max(maxSpeed, velocityMultiplier);
     // Update the velocity multiplier display
@@ -324,7 +336,7 @@ function animate() {
           );
         }
 
-        if (enemy.radius - 10 > 5) {
+        if (enemy.radius - enemyShrinkAmount > minShrinkRadius) {
           // enemy radius alone will create very small enemies and makes it difficult to see (might be a next level of difficulty to create later) but for now when the enemy is less than 10px will be removed
 
           //Increase the score if enemy shrinks
@@ -332,7 +344,7 @@ function animate() {
           scoreSpan.innerHTML = score;
 
           gsap.to(enemy, {
-            radius: enemy.radius - 10,
+            radius: enemy.radius - enemyShrinkAmount,
           });
           setTimeout(() => {
             projectiles.splice(projectileIndex, 1);
@@ -370,13 +382,19 @@ events.forEach((eventType) => {
         ); // To get the distance of the mouse from the center of the screen, we take the direction, which is event(wherever the mouse is clicking) and the center of the screen
 
     const velocity = {
-      x: Math.cos(angle) * 5, // to get the x velocity reference math.cos, cause cosine is always for the x adjacent axis. This is gonna return any number negative one to one
-      y: Math.sin(angle) * 5, // same than above, returns any number negative. But cosine and sine together are going to produce two different results to have a perfect ratio to start pushing the projectile to wherever the player clicks on the screen
+      x: Math.cos(angle) * projectileSpeed, // to get the x velocity reference math.cos, cause cosine is always for the x adjacent axis. This is gonna return any number negative one to one
+      y: Math.sin(angle) * projectileSpeed, // same than above, returns any number negative. But cosine and sine together are going to produce two different results to have a perfect ratio to start pushing the projectile to wherever the player clicks on the screen
     };
 
     //Creates projectiles
     projectiles.push(
-      new Projectile(canvas.width / 2, canvas.height / 2, 5, "white", velocity)
+      new Projectile(
+        canvas.width / 2,
+        canvas.height / 2,
+        projectileRadius,
+        "white",
+        velocity
+      )
     );
     projectilesShot++;
   });
